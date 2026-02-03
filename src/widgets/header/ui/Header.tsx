@@ -1,3 +1,4 @@
+import { Button } from "@/shared/ui";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
@@ -18,7 +19,9 @@ export const Header = () => {
           </Link>
 
           <div className="flex items-center gap-3 border-l pl-6">
-            <Link to="/login"></Link>
+            <Link to="/login">
+              <Button size="sm">Sign In</Button>
+            </Link>
           </div>
         </div>
       </div>
