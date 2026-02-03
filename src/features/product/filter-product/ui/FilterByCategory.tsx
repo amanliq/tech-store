@@ -1,9 +1,10 @@
 import { CATEGORY_OPTIONS } from "@/entities/product";
+import type { CategoryOption } from "@/entities/product/model/constants";
 import { Button } from "@/shared/ui";
 
 interface Props {
-  currentCategory: string;
-  onCategoryChange: (category: string) => void;
+  currentCategory: CategoryOption;
+  onCategoryChange: (category: CategoryOption) => void;
 }
 
 export const FilterByCategory = ({

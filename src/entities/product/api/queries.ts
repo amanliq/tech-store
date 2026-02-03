@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts, fetchProductById } from "./productApi";
-import type { Category } from "../model/types";
+import type { CategoryOption } from "../model/constants";
 
 export const productKeys = {
   all: ["products"] as const,
@@ -10,7 +10,7 @@ export const productKeys = {
   detail: (id: string | number) => [...productKeys.all, "detail", id] as const,
 };
 
-export const useProductsQuery = (category?: Category) => {
+export const useProductsQuery = (category?: CategoryOption) => {
   return useQuery({
     queryKey: productKeys.list(category),
     queryFn: () => fetchProducts(category),
