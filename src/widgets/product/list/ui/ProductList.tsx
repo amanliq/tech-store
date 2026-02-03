@@ -1,14 +1,11 @@
-import {
-  ProductCard,
-  useProductsQuery,
-  type Category,
-} from "@/entities/product";
+import { ProductCard, useProductsQuery } from "@/entities/product";
 import { Link } from "react-router-dom";
 import ProductListError from "./ProductListError";
 import ProductListLoading from "./ProductListLoading";
+import type { CategoryOption } from "@/entities/product/model/constants";
 
 interface ProductListProps {
-  category?: Category;
+  category?: CategoryOption;
 }
 export const ProductList = ({ category }: ProductListProps) => {
   const {

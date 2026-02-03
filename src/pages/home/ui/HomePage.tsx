@@ -1,4 +1,4 @@
-import { ProductList } from "@/widgets/product";
+import { ProductCatalog } from "@/widgets/product";
 
 export const HomePage = () => {
   return (
@@ -7,7 +7,7 @@ export const HomePage = () => {
       <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
         Tech Products
       </h1>
-      <ProductList />
+      <ProductCatalog />
     </section>
   );
 };
