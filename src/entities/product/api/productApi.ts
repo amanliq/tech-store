@@ -13,7 +13,6 @@ export const fetchProducts = async (category?: string): Promise<Product[]> => {
   return results.flatMap((res) => res.data.products);
 };
 
-
 export const fetchProductById = async (
   id: string | number,
 ): Promise<Product | undefined> => {
