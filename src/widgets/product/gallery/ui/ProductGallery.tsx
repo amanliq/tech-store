@@ -36,7 +36,6 @@ export const ProductGallery = ({
         {images.length > 1 && (
           <>
             <Button
-              variant="secondary"
               size="icon"
               className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
               onClick={handlePrevious}
@@ -44,7 +43,6 @@ export const ProductGallery = ({
               <ChevronLeft className="h-5 w-5" />
             </Button>
             <Button
-              variant="secondary"
               size="icon"
               className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
               onClick={handleNext}
