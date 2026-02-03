@@ -1,8 +1,16 @@
-import { ProductCard, type Product } from "@/entities/product";
+import {
+  ProductCard,
+  useProductsQuery,
+  type Category,
+} from "@/entities/product";
 import { Link } from "react-router-dom";
 
-export const ProductList = () => {
-  const products: Product[] = [];
+interface ProductListProps {
+  category?: Category;
+}
+export const ProductList = ({ category }: ProductListProps) => {
+  const { data: products } = useProductsQuery(category);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {products?.map((product) => (
