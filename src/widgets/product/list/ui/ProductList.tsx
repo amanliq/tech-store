@@ -4,8 +4,8 @@ import {
   type Category,
 } from "@/entities/product";
 import { Link } from "react-router-dom";
-import ProductListLoading from "./ProductListLoading";
 import ProductListError from "./ProductListError";
+import ProductListLoading from "./ProductListLoading";
 
 interface ProductListProps {
   category?: Category;
