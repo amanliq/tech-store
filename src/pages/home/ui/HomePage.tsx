@@ -1,4 +1,4 @@
-import { ProductList } from "@/widgets/product-list";
+import { ProductList } from "@/widgets/product";
 
 export const HomePage = () => {
   return (
