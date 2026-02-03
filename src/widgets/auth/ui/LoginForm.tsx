@@ -1,19 +1,48 @@
-import { Button, Input, Label } from "@/shared/ui";
+import { loginSchema, type LoginFormData } from "@/features/auth";
+import { Button, FormInput } from "@/shared/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 export const LoginForm = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    console.log(data);
+  };
+
   return (
-    <form className="space-y-4 max-w-sm mx-auto mt-4 p-6 border rounded-lg">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-4 max-w-sm mx-auto mt-4 p-6 border rounded-lg"
+    >
       <h2 className="text-2xl font-bold">Login</h2>
 
       <div>
-        <Label>Login</Label>
-        <Input type="text" name="login" />
+        <FormInput
+          register={register}
+          error={errors.username}
+          type="text"
+          label="Login"
+          name="username"
+        />
       </div>
 
       <div>
-        <Label>Password</Label>
-        <Input
+        <FormInput
+          register={register}
+          error={errors.password}
           type="password"
+          label="Password"
           name="password"
           className="w-full p-2 border rounded"
         />

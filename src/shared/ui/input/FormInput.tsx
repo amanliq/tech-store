@@ -34,7 +34,9 @@ export const FormInput = <T extends FieldValues = FieldValues>({
         className={error ? "error" : ""}
       />
 
-      {error && <span className="error-message">{error.message}</span>}
+      {error && (
+        <span className="text-red-500 text-[11px]">{error.message}</span>
+      )}
     </div>
   );
 };
