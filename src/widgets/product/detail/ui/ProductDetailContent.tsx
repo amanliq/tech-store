@@ -2,6 +2,7 @@ import { useProductByIdQuery } from "@/entities/product";
 import { ProductDetailLoading } from "./ProductDetailLoading";
 import { ProductDetailError } from "./ProductDetailError";
 import { ProductGallery } from "../../gallery";
+import { AddToCartButton } from "@/features/cart";
 
 interface ProductDetailContentProps {
   productId: string;
@@ -43,6 +44,10 @@ export const ProductDetailContent = ({
           {product.description}
         </p>
         <div className="text-3xl font-bold">${product.price}</div>
+
+        <div className="max-w-xs">
+          <AddToCartButton product={product} />
+        </div>
       </div>
     </main>
   );
