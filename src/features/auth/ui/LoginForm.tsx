@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
-  const { mutate, isPending, error } = useLogin();
+  const { mutateAsync, isPending, error } = useLogin();
   const navigate = useNavigate();
   const {
     register,
@@ -20,11 +20,8 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    mutate(data, {
-      onSuccess: () => {
-        navigate("/");
-      },
-    });
+    await mutateAsync(data);
+    navigate("/");
   };
 
   return (
