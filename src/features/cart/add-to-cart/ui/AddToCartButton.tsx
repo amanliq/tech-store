@@ -9,7 +9,9 @@ interface AddToCartButtonProps {
 export const AddToCartButton = ({ product }: AddToCartButtonProps) => {
   const addItem = useCartStore((state) => state.addItem);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     addItem(product);
   };
 

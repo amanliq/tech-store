@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ProductListError from "./ProductListError";
 import ProductListLoading from "./ProductListLoading";
 import type { CategoryOption } from "@/entities/product/model/constants";
+import { AddToCartButton } from "@/features/cart";
 
 interface ProductListProps {
   category?: CategoryOption;
@@ -29,7 +30,10 @@ export const ProductList = ({ category }: ProductListProps) => {
           key={product.id}
           className="transition-transform hover:scale-[1.02]"
         >
-          <ProductCard product={product} />
+          <ProductCard
+            product={product}
+            action={<AddToCartButton product={product} />}
+          />
         </Link>
       ))}
     </div>
