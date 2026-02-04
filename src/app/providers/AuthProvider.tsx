@@ -1,4 +1,4 @@
-import { useUserSync } from "@/features/auth/model/useUserSync";
+import { useUserSync } from "@/features/auth";
 import type { ReactNode } from "react";
 
 interface AuthProviderProps {

@@ -1,4 +1,8 @@
-import { loginSchema, useLogin, type LoginFormData } from "@/features/auth";
+import {
+  loginSchema,
+  useLogin,
+  type LoginFormData,
+} from "@/features/auth/login";
 import { ButtonLoading, FormInput } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
