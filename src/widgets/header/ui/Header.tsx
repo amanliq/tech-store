@@ -1,7 +1,12 @@
+import { useUserStore } from "@/entities/user";
+import { LogoutButton } from "@/features/auth";
 import { Button } from "@/shared/ui";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
+  const isLoggedIn = useUserStore((s) => !!s.token);
+  const user = useUserStore((s) => s.user);
+
   return (
     <header className="border-b bg-white sticky top-0 z-40">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -19,9 +24,16 @@ export const Header = () => {
           </Link>
 
           <div className="flex items-center gap-3 border-l pl-6">
-            <Link to="/login">
-              <Button size="sm">Sign In</Button>
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <span className="text-sm text-gray-500">{user?.username}</span>
+                <LogoutButton />
+              </>
+            ) : (
+              <Link to="/login">
+                <Button size="sm">Sign In</Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
