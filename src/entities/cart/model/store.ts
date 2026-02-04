@@ -60,7 +60,9 @@ export const useCartStore = create<CartState>()(
         get().calculateTotalPrice();
         get().setTotalCount();
       },
-      clearCart: () => {},
+      clearCart: () => {
+        set({ items: [], totalPrice: 0, totalCount: 0 });
+      },
 
       calculateTotalPrice: () => {
         const items = get().items;

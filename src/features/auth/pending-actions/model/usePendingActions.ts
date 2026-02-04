@@ -1,9 +1,13 @@
 import { useCartStore } from "@/entities/cart";
 import { useNavigate } from "react-router-dom";
 import type { PendingAction } from "./types";
+import { usePendingActionsStore } from "./store";
 
 export const usePendingActions = () => {
   const addItem = useCartStore((s) => s.addItem);
+  const removePendingAction = usePendingActionsStore(
+    (s) => s.removePendingAction,
+  );
 
   const navigate = useNavigate();
 
@@ -13,6 +17,7 @@ export const usePendingActions = () => {
       if (action.redirectTo) {
         navigate(action.redirectTo);
       }
+      removePendingAction(action);
     }
   };
 
