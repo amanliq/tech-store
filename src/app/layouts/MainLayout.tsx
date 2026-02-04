@@ -5,7 +5,7 @@ export const MainLayout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow ">
         <Outlet />
       </main>
       <footer className="py-6 text-center text-sm text-gray-400 border-t bg-white">
