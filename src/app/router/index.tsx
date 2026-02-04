@@ -3,6 +3,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import { HomePage } from "@/pages/home";
 import { ProductDetailPage } from "@/pages/product";
 import { LoginPage } from "@/pages/login";
+import { CartPage } from "@/pages/cart";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
     ],
   },

@@ -1,9 +1,12 @@
+import { useCartStore } from "@/entities/cart";
 import { useUserStore } from "@/entities/user";
 import { LogoutButton } from "@/features/auth";
-import { Button } from "@/shared/ui";
+import { Badge, Button } from "@/shared/ui";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
+  const totalCount = useCartStore((s) => s.totalCount);
+
   const isLoggedIn = useUserStore((s) => !!s.token);
   const user = useUserStore((s) => s.user);
 
@@ -21,6 +24,9 @@ export const Header = () => {
             className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <span className="text-sm font-medium">Cart</span>
+            {totalCount > 0 && (
+              <Badge className="absolute -top-1 -right-1">{totalCount}</Badge>
+            )}
           </Link>
 
           <div className="flex items-center gap-3 border-l pl-6">
