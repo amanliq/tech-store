@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 export const useLogout = () => {
   const navigate = useNavigate();
-  const clearAuth = useUserStore((state) => state.clearAuth);
+  const logout = useUserStore((state) => state.logout);
 
   const handleLogout = () => {
-    clearAuth();
-    localStorage.removeItem("token");
+    logout();
     navigate("/login");
   };
 

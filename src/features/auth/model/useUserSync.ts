@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useUserQuery, useUserStore } from "@/entities/user";
 
 export const useUserSync = () => {
-  const { token, setUser, clearAuth } = useUserStore();
+  const { token, setUser, logout } = useUserStore();
   const { isSuccess, data, isError, isLoading } = useUserQuery(!!token);
 
   useEffect(() => {
@@ -14,8 +14,7 @@ export const useUserSync = () => {
 
   useEffect(() => {
     if (isError) {
-      clearAuth();
-      localStorage.removeItem("token");
+      logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
