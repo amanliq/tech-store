@@ -4,6 +4,7 @@ import { HomePage } from "@/pages/home";
 import { ProductDetailPage } from "@/pages/product";
 import { LoginPage } from "@/pages/login";
 import { CartPage } from "@/pages/cart";
+import { AuthGuard } from "./guards/AuthGuard";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,13 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: "/cart",
-        element: <CartPage />,
+        element: <AuthGuard />,
+        children: [
+          {
+            path: "/cart",
+            element: <CartPage />,
+          },
+        ],
       },
     ],
   },
