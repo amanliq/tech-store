@@ -1,10 +1,10 @@
 import { loginSchema, useLogin, type LoginFormData } from "@/features/auth";
-import { Button, FormInput } from "@/shared/ui";
+import { ButtonLoading, FormInput } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export const LoginForm = () => {
-  const { mutate } = useLogin();
+  const { mutate, isPending } = useLogin();
 
   const {
     register,
@@ -50,9 +50,14 @@ export const LoginForm = () => {
         />
       </div>
 
-      <Button type="submit" className="w-full">
+      <ButtonLoading
+        isLoading={isPending}
+        loadingText="Authenticating..."
+        type="submit"
+        className="w-full"
+      >
         Sign In
-      </Button>
+      </ButtonLoading>
     </form>
   );
 };
