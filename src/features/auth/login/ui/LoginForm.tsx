@@ -1,12 +1,14 @@
-import { loginSchema, useLogin, type LoginFormData } from "@/features/auth";
+import {
+  loginSchema,
+  useLogin,
+  type LoginFormData,
+} from "@/features/auth/login";
 import { ButtonLoading, FormInput } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
   const { mutateAsync, isPending, error } = useLogin();
-  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -21,7 +23,6 @@ export const LoginForm = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     await mutateAsync(data);
-    navigate("/");
   };
 
   return (
