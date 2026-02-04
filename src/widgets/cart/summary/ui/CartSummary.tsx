@@ -1,4 +1,5 @@
 import { useCartStore } from "@/entities/cart";
+import { ClearCartButton } from "@/features/cart";
 import { Button } from "@/shared/ui";
 
 export const CartSummary = () => {
@@ -16,8 +17,10 @@ export const CartSummary = () => {
           <span>${totalPrice.toFixed(2)}</span>
         </div>
       </div>
-
-      <Button> Checkout</Button>
+      <div className="flex items-center gap-3">
+        <ClearCartButton />
+        <Button> Checkout</Button>
+      </div>
     </div>
   );
 };

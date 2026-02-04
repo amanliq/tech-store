@@ -8,7 +8,7 @@ export const CartPage = () => {
           <div className="flex-1">
             <CartList />
           </div>
-          <div className="w-md ">
+          <div className="w-sm ">
             <CartSummary />
           </div>
         </div>
