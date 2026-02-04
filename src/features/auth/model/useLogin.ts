@@ -12,8 +12,6 @@ export const useLogin = () => {
         const { accessToken, username, id } = response;
 
         setAuth({ username, id }, accessToken);
-
-        localStorage.setItem("token", accessToken);
       }
     },
   });
