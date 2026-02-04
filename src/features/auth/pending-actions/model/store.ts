@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { PendingAction } from "./types";
+import type { PendingAction, PendingActionType } from "./types";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface PendingActionsState {
@@ -7,7 +7,12 @@ interface PendingActionsState {
   addPendingAction: (action: PendingAction) => void;
   removePendingAction: (action: PendingAction) => void;
   updatePendingAction: (action: PendingAction) => void;
+
   getPendingActions: () => PendingAction[];
+  getPendingActionByType: (
+    actionType: PendingActionType,
+  ) => PendingAction | null;
+
   clearPendingActions: () => void;
   hasPendingActions: () => boolean;
 }
@@ -16,6 +21,7 @@ export const usePendingActionsStore = create<PendingActionsState>()(
   persist(
     (set, get) => ({
       actions: [],
+
       addPendingAction: (newAction) => {
         const actions = get().actions;
         const hasSameTypeAction = actions.find(
@@ -55,6 +61,11 @@ export const usePendingActionsStore = create<PendingActionsState>()(
       hasPendingActions: () => get().actions.length > 0,
 
       getPendingActions: () => get().actions,
+      getPendingActionByType: (type: PendingActionType) => {
+        const actions = get().actions;
+        const hasSameTypeAction = actions.find((action) => action.type == type);
+        return hasSameTypeAction ?? null;
+      },
     }),
     {
       name: "pending-actions-storage",
