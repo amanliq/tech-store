@@ -2,10 +2,11 @@ import { loginSchema, useLogin, type LoginFormData } from "@/features/auth";
 import { ButtonLoading, FormInput } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
   const { mutate, isPending, error } = useLogin();
-
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -13,13 +14,17 @@ export const LoginForm = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: "michaelw",
+      password: "michaelwpass",
     },
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        navigate("/");
+      },
+    });
   };
 
   return (
