@@ -5,7 +5,7 @@ import { useLogout } from "./useLogout";
 export const useUserSync = () => {
   const { token, setUser } = useUserStore();
   const { handleLogout } = useLogout();
-  const { isSuccess, data, isError } = useUserQuery(!!token);
+  const { isSuccess, data, isError, isLoading } = useUserQuery(!!token);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -20,4 +20,6 @@ export const useUserSync = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
+
+  return { isLoading };
 };
