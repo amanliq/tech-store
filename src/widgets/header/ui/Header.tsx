@@ -1,6 +1,6 @@
 import { useCartStore } from "@/entities/cart";
 import { useUserStore } from "@/entities/user";
-import { LogoutButton } from "@/features/auth/login";
+import { LogoutButton } from "@/features/auth";
 import { Badge, Button } from "@/shared/ui";
 import { Link } from "react-router-dom";
 
