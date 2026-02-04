@@ -10,13 +10,14 @@ export const useAddToCart = (product: Product) => {
   const navigate = useNavigate();
 
   const handleAddToCart = (e: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
     if (!token) {
       navigate("/login");
       return;
     }
 
-    e?.preventDefault();
-    e?.stopPropagation();
     addItem(product);
   };
 
