@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export const LoginForm = () => {
-  const { mutate, isPending } = useLogin();
+  const { mutate, isPending, error } = useLogin();
 
   const {
     register,
@@ -28,6 +28,9 @@ export const LoginForm = () => {
       className="space-y-4 max-w-sm mx-auto mt-4 p-6 border rounded-lg"
     >
       <h2 className="text-2xl font-bold">Login</h2>
+      {error?.message && (
+        <span className="text-red-500 text-sm">{error?.message}</span>
+      )}
 
       <div>
         <FormInput
