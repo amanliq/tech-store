@@ -1,6 +1,7 @@
 import { useCartStore } from "@/entities/cart";
 import { ControlQuantity } from "@/features/cart";
 import { CartListEmpty } from "./CartListEmpty";
+import { RemoveFromCartButton } from "@/features/cart/remove-from-cart";
 
 export const CartList = () => {
   const items = useCartStore((state) => state.items);
@@ -26,6 +27,7 @@ export const CartList = () => {
                 productId={item.product.id}
                 currentQuantity={item.quantity}
               />
+              <RemoveFromCartButton productId={item.product.id} />
             </div>
           </div>
 
