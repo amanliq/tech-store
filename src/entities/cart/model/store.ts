@@ -24,7 +24,7 @@ export const useCartStore = create<CartState>()(
         const hasProduct = items.find((item) => item.product.id === product.id);
 
         if (hasProduct) {
-          get().updateQuantity(product.id, hasProduct.quantity + 1);
+          get().updateQuantity(product.id, 1);
         } else {
           set({ items: [...items, { product, quantity: 1 }] });
 
