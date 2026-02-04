@@ -1,11 +1,11 @@
-import { loginSchema, type LoginFormData } from "@/features/auth";
+import { loginSchema, useLogin, type LoginFormData } from "@/features/auth";
 import { Button, FormInput } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export const LoginForm = () => {
+  const { mutate } = useLogin();
 
-  
   const {
     register,
     formState: { errors },
@@ -19,7 +19,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log(data);
+    mutate(data);
   };
 
   return (
