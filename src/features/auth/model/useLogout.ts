@@ -7,6 +7,7 @@ export const useLogout = () => {
 
   const handleLogout = () => {
     clearAuth();
+    localStorage.removeItem("token")
     navigate("/login");
   };
 
