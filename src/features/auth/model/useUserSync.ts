@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useUserQuery, useUserStore } from "@/entities/user";
-import { useLogout } from "./useLogout";
 
 export const useUserSync = () => {
-  const { token, setUser } = useUserStore();
-  const { handleLogout } = useLogout();
+  const { token, setUser, clearAuth } = useUserStore();
   const { isSuccess, data, isError, isLoading } = useUserQuery(!!token);
 
   useEffect(() => {
@@ -16,7 +14,8 @@ export const useUserSync = () => {
 
   useEffect(() => {
     if (isError) {
-      handleLogout();
+      clearAuth();
+      localStorage.removeItem("token");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
