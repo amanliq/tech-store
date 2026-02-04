@@ -4,7 +4,6 @@ import { useUserQuery, useUserStore } from "@/entities/user";
 export const useUserSync = () => {
   const { token, setUser, logout } = useUserStore();
   const { isSuccess, data, isError, isLoading } = useUserQuery(!!token);
-
   useEffect(() => {
     if (isSuccess && data) {
       setUser(data);

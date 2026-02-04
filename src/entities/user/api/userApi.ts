@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/api/apiClient";
 
 export const getCurrentUser = async (signal: AbortSignal) => {
-  apiClient.get("/auth/me", { signal });
+  return apiClient.get("/auth/me", { signal }).then((res) => res.data);
 };
