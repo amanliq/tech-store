@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { User } from "./types";
 import { persist } from "zustand/middleware";
+import { tokenService } from "@/shared/lib";
 
 interface UserState {
   user: User | null;
@@ -15,23 +16,25 @@ export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
       user: null,
-      token: null,
+      token: tokenService.getToken() || null,
       setAuth: (user, token) => {
         set({ user, token });
-        localStorage.setItem("token", token);
+        tokenService.setToken(token);
       },
-      clearAuth: () => set({ user: null, token: null }),
+      clearAuth: () => {
+        set({ user: null, token: null });
+        tokenService.removeToken();
+      },
       setUser: (user) => set({ user }),
+
       logout: () => {
         get().clearAuth();
-        localStorage.removeItem("token");
       },
     }),
 
     {
       name: "user-storage",
       partialize: (state) => ({
-        token: state.token,
         user: state.user,
       }),
     },
