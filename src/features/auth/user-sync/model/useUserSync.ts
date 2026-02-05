@@ -9,7 +9,7 @@ export const useUserSync = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      setUser(data);
+      setUser({ id: data.id, username: data.username });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, data]);
