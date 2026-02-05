@@ -1,4 +1,5 @@
 import axios from "axios";
+import { tokenService } from "../lib";
 
 export const apiClient = axios.create({
   baseURL: "https://dummyjson.com",
@@ -6,7 +7,7 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = tokenService.getToken();
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
