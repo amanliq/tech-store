@@ -109,7 +109,7 @@ Tiykarǵı funktsional imkaniyatlar:
 
      ```
 
-     - Ha'r bir feature `ui`, `model`, `api`, etc., strukturasina iye ha'm basqa featurelarg'a ta'sir qilmaydi.
+     - Ha'r bir feature `ui`, `model`, `api`, etc., strukturasina iye ha'm basqa featurelarg'a ta'sir etpeydi.
 
    - **Gorizontal:** Jan'a feature-ler ha'm domenler g'a'rezsiz tu'rde qosıla beredi, bul proekttin' (app) mashtabın ken'eytiwge imkaniyat beredi.
 
