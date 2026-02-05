@@ -16,8 +16,8 @@ export const LoginForm = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "michaelw",
-      password: "michaelwpass",
+      username: "",
+      password: "",
     },
   });
 
@@ -55,6 +55,8 @@ export const LoginForm = () => {
           className="w-full p-2 border rounded"
         />
       </div>
+
+      <span>login:michaelw / pass:michaelwpass</span>
 
       <ButtonLoading
         isLoading={isPending}
