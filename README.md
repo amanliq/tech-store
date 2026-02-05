@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+## Proekt arxitekturası hám moduller strukturası
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proekt React 18, Vite, React Router v6, Tailwind ha'm Zustand texnologiyaları tiykarında qurılg'an.
 
-Currently, two official plugins are available:
+Feature-Sliced Design (FSD) usillarinan paydalanilg'an
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Top-level layers
 
-## React Compiler
+- **app** – qosimshani iske tu'siriw bo'limi, strukturalıq maketler, provayderler, marshrutlaw, ha'm ulıwma stiller.
+- **pages** – qosımshanın' tolıq betleri (marshrutlarǵa baylanısqan).
+- **features** -domenlerge bo'lingen funksional imkaniyatlar (mısalı: sebetke qosıw, tovarlardı saralaw, sistemag'a kiriw).
+- **entities** –biznes-modeller (cart, product, user) ha'm mag'lıwmatlar strukturası.
+- **widgets** – UI blokları: domenlerge bo'lingen (cart, product) ha'm uliwma maket elementleri (header).
+- **shared** – qayta qollanılatuǵın funksiyalar: API servisleri ha'm domenge baylanıslı bolmag'an UI elementleri.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Avtorizatsiyanin' islew logikası
 
-## Expanding the ESLint configuration
+Avtorizatsiya - klient ta'repindegi jag'daydi basqarıw ushın Zustand ha'm server menen baylanısıw ushın TanStack Query ja'rdeminde a'melge asırıldi.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Tiykarǵı funktsional imkaniyatlar:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Oraylastirilg'an state (jag'day)** – Avtorizatsiya jaǵdayı user store da oraylastırıldi, al avtorizatsiya logikası auth features (`login`, `logout`, `user-sync`) arqalı basqarıldi.
+2. **Session persistence** – `AuthProvider` paydalaniwshi mag'lumatlarin aliw ha'm sinxronlaw ushun `useUseSync` hook ti isletedi egerde paydlaniwshi token eskirgen bolsa yamasa serverden qa'telik (error) kelse profileden shig'ariladi.
+3. **Protected routes** – `AuthGuard` `cart` ha'm basqa qorg'alg'an marshrutlarg'a tek avtorizatsiyadan o'tken paydalanıwshılarg'a ruxsat beriwdi ta'miyinleydi.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+4. **Pending actions** – Avtorizatsiyadan o'tpegen paydalanıwshı produkttı cart-qa qosiwg'a urıng'anda:
+   - Bul háreket (action) `usePendingActionsStore`da saqlanadi ha'm login betine o'tkiziledi.
+   - Login bolg'annan keyin `usePendingActionsStore` da saqlang'an actionlar orinlanadi.
+   - Bul logika auth features bo'limine oraylastirilg'an.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Nege usı jol tan'lang'anı:**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Avtorizatsiya menen baylanıslı logikalar bir jerde saqlanadı, UI komponentler tek rendering menen shug'illanadi .
+- Login, logout, user sync sıyaqlı processler anıq ha'm tu'sinikli boladı.
+- Keleshekte avtorizatsiya logikasın ken'eytiw ha'm o'zgeris kirgiziw an'satlaw boladi
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scalability Approach
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The architecture is designed for growth in both features and domains:
+
+1. **Domain isolation** – Features, widgets, and entities are grouped by domain (cart, product, auth), making it easy to add new domains like orders or favorites without affecting existing code.
+2. **Feature-level growth** – Features within a domain (e.g., cart: add, remove, update) can grow independently.
+3. **Widget reuse** – UI components are domain-oriented and reusable across pages.
+4. **Shared utilities** – Common logic and API clients remain centralized, avoiding duplication.
+5. **Future layering** – If the project becomes larger, domains can be split into stricter layers (entities, features, widgets) without rewriting existing logic.
+
+**Overall reasoning:**  
+The structure balances **clarity, maintainability, and speed of development**, while remaining flexible for new domains, features, or complex UI interactions.
+
+## Project Architecture and Module Structure
+
+The project is built with React 18, Vite, React Router v6, Tailwind, and Zustand.
+
+It follows a Feature-Sliced Design (FSD) principles
+
+Top-level layers
+
+- **app** – app entry, layouts, providers, routing, global styles.
+- **pages** – route-level pages.
+- **features** – user actions grouped by domain (cart, product, auth).
+- **entities** – business models (cart, product, user) and data handling.
+- **widgets** – UI blocks grouped by domain (cart, product, header).
+- **shared** – reusable utilities, API client, UI components.
+
+Features and widgets are grouped by domain to improve cohesion and maintainability.
+
+## Authorization Scenario
+
+Authorization is implemented using Zustand for client state and TanStack Query for server interactions.
+
+Key points:
+
+1. **Centralized state** – Auth state is centralized in the user store, while auth logic is handled through auth features (`login`, `logout`, `user-sync`).
+
+2. **Session persistence** – `AuthProvider` calls `useUserSync` on app start to fetch and sync the current user, and logs out if the user token is invalid or the request fails..
+3. **Protected routes** – `AuthGuard` ensures that only authorized users can access sensitive pages like the cart.
+4. **Pending actions** – When a non-authorized user tries to add a product to the cart:
+   - The action is stored in `usePendingActionsStore` and the user is redirected to login.
+   - After login via `useLogin`, the stored pending action is executed .
+   - This logic is centralized in auth features.
+
+**Reasoning for this approach:**
+
+**Reasoning for this approach:**
+
+- Auth-related logic is kept in one place, while UI components focus only on rendering.
+- Login, logout, and user sync flows are clear and easy to follow.
+- In the future, it becomes easier to extend and modify the authorization logic.
+
+## Scalability Approach
+
+The architecture is designed for growth in both features and domains:
+
+1. **Domain isolation** – Features, widgets, and entities are grouped by domain (cart, product, auth), making it easy to add new domains like orders or favorites without affecting existing code.
+2. **Feature-level growth** – Features within a domain (e.g., cart: add, remove, update) can grow independently.
+3. **Widget reuse** – UI components are domain-oriented and reusable across pages.
+4. **Shared utilities** – Common logic and API clients remain centralized, avoiding duplication.
+5. **Future layering** – If the project becomes larger, domains can be split into stricter layers (entities, features, widgets) without rewriting existing logic.
+
+**Overall reasoning:**  
+The structure balances **clarity, maintainability, and speed of development**, while remaining flexible for new domains, features, or complex UI interactions.
