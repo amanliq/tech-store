@@ -56,13 +56,12 @@ export const LoginForm = () => {
         />
       </div>
 
-      <span>login:michaelw / pass:michaelwpass</span>
-
+      <span>michaelw / michaelwpass</span>
       <ButtonLoading
         isLoading={isPending}
         loadingText="Authenticating..."
         type="submit"
-        className="w-full"
+        className="w-full mt-3"
       >
         Sign In
       </ButtonLoading>
